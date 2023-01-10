@@ -1,11 +1,7 @@
 function saveOptions() {
-	let dashBoardEnabled = document.getElementById('dashboard').checked;
-	let dashBoardIntervalTime = document.getElementById('dashboardInterval').value;
 	let viewsEnabled = document.getElementById('views').checked;
 	let viewsIntervalTime = document.getElementById('viewsInterval').value;
 	chrome.storage.sync.set({
-		dashBoardEnabled: dashBoardEnabled,
-		dashBoardIntervalTime: notSmallerThanOne(dashBoardIntervalTime),
 		viewsEnabled: viewsEnabled,
 		viewsIntervalTime: notSmallerThanOne(viewsIntervalTime)
 	}, () => {
@@ -25,8 +21,6 @@ function loadOptions() {
 		viewsEnabled: true,
 		viewsIntervalTime: 60
 	}, items => {
-		document.getElementById('dashboard').checked = items.dashBoardEnabled;
-		document.getElementById('dashboardInterval').value = items.dashBoardIntervalTime;
 		document.getElementById('views').checked = items.viewsEnabled;
 		document.getElementById('viewsInterval').value = items.viewsIntervalTime;
 	});

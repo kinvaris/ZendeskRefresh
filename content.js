@@ -1,55 +1,20 @@
-let dashBoardEnabled;
-let dashBoardIntervalTime;
 let viewsEnabled;
 let viewsIntervalTime;
 
-function setIntervals() {
-	setInterval(() => {
-		if (dashBoardEnabled && $("a[data-test-id='home-tab']").hasClass("active-product-link")) {
-			$("a[data-test-id='home-tab']").click();
-			console.debug("refreshed dashboard");
+$( document ).ready(function() {
+    console.log("Zendesk refresh extension has been activated!");
+	console.log("Views enabled: " + viewsEnabled);
+	console.log("Views refresh seconds: " + viewsIntervalTime);
+
+	if (viewsEnabled) {
+		var zendeskIntervalId = window.setInterval(function(){
+			$(`button[aria-label="Refresh views pane"]`).click()
+		}, viewsIntervalTime * 1000);
+	} else {
+		console.log("Zendesk refresh extension has been stopped manually!");
+
+		if (zendeskIntervalId) {
+			clearInterval(zendeskIntervalId);
 		}
-	}, dashBoardIntervalTime * 1000);
-
-	setInterval(() => {
-		if (viewsEnabled && $("a[data-original-title='Views']").hasClass("active-product-link")) {
-			if ($("li:contains('1')").length > 0) { // Only click if we are on the first page, could not find an easier selector.
-				if ($("li:contains('1')").css("cursor") != "pointer") {
-					refreshViews();
-				}
-			} else {
-				refreshViews();
-			}
-		}
-	}, viewsIntervalTime * 1000);
-}
-
-function refreshViews() {
-	let refresh = $("#main_panes button[data-test-id='views_views-list_header-refresh']");
-	refresh.click();
-	console.debug("refreshed views", refresh.length == 1);
-}
-
-function loadOptionsAndStartIntervals() {
-		chrome.storage.sync.get({
-		dashBoardEnabled: true,
-		dashBoardIntervalTime: 60,
-		viewsEnabled: true,
-		viewsIntervalTime: 60
-	}, items => {
-		dashBoardEnabled = items.dashBoardEnabled;
-		dashBoardIntervalTime = items.dashBoardIntervalTime;
-		viewsEnabled = items.viewsEnabled;
-		viewsIntervalTime = items.viewsIntervalTime;
-
-		console.log("dashBoardEnabled: " + dashBoardEnabled +
-				", dashBoardIntervalTime: " + dashBoardIntervalTime +
-				", viewsEnabled: " + viewsEnabled +
-				", viewsIntervalTime: " + viewsIntervalTime
-		);
-		setIntervals();
-	});
-
-}
-
-loadOptionsAndStartIntervals();
+	}
+});

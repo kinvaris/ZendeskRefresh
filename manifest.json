@@ -1,13 +1,13 @@
 {
-  "name": "Zendesk Auto Refresh",
-  "description": "This is a third party plugin that will enforce zendesk to refresh.",
-  "version": "3.1.2",
-  "manifest_version": 2,
+  "name": "Zendesk Auto Refresh V2",
+  "description": "This is a third party plugin that will enforce zendesk to refresh. Originally developed by Brandon Stubbs",
+  "version": "0.0.1",
+  "manifest_version": 1,
   "minimum_chrome_version": "45",
   "content_scripts": [
     {
-      "matches": ["*://*.zendesk.com/agent/*"],
-      "js": ["jquery-3.6.0.min.js", "content.js"]
+      "matches": ["https://*.zendesk.com/agent/filters/*", "https://*.zendesk.com/"],
+      "js": ["content.js"]
     }
   ],
   "background": {
@@ -25,5 +25,5 @@
     "page": "options.html",
     "open_in_tab": false
   },
-  "author": "Brandon Stubbs"
+  "author": "Jonas Libbrecht"
 }
