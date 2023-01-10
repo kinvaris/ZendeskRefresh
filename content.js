@@ -1,5 +1,5 @@
-let viewsEnabled;
-let viewsIntervalTime;
+let viewsEnabled = true;
+let viewsIntervalTime = 10;
 
 $( document ).ready(function() {
     console.log("Zendesk refresh extension has been activated!");
@@ -8,7 +8,8 @@ $( document ).ready(function() {
 
 	if (viewsEnabled) {
 		var zendeskIntervalId = window.setInterval(function(){
-			$(`button[aria-label="Refresh views pane"]`).click()
+			$(`button[data-test-id="views_views-list_header-refresh"]`).click()
+			console.log("Refreshing views ...");
 		}, viewsIntervalTime * 1000);
 	} else {
 		console.log("Zendesk refresh extension has been stopped manually!");

@@ -16,10 +16,8 @@ function notSmallerThanOne(num) {
 
 function loadOptions() {
 	chrome.storage.sync.get({
-		dashBoardEnabled: true,
-		dashBoardIntervalTime: 60,
 		viewsEnabled: true,
-		viewsIntervalTime: 60
+		viewsIntervalTime: 5
 	}, items => {
 		document.getElementById('views').checked = items.viewsEnabled;
 		document.getElementById('viewsInterval').value = items.viewsIntervalTime;
