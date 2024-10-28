@@ -1,8 +1,8 @@
 {
-  "name": "Zendesk Auto Refresh V2",
+  "name": "Zendesk Auto Refresh V2.1",
   "description": "This is a third party plugin that will enforce zendesk to refresh. Originally developed by Brandon Stubbs",
-  "version": "0.0.5",
-  "manifest_version": 2,
+  "version": "0.1.0",
+  "manifest_version": 3,
   "minimum_chrome_version": "45",
   "content_scripts": [
     {
@@ -11,16 +11,15 @@
     }
   ],
   "background": {
-    "scripts": ["background.js"],
-    "persistent": false
+    "service_worker": "background.js"
   },
-  "page_action" : {
+  "action" : {
     "default_icon": {
       "128": "refresh-icon.png"
     }
   },
   "icons": {"128": "refresh-icon.png"},
-  "permissions" : ["storage", "declarativeContent", "https://*.zendesk.com/*"],
+  "permissions" : ["storage", "tabs"],
   "options_ui": {
     "page": "options.html",
     "open_in_tab": false
